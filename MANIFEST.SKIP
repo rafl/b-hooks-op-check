@@ -1,0 +1,6 @@
+^\.
+build\b
+\.bak$
+inc\b
+^Makefile$
+^Makefile.old$
