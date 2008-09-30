@@ -6,6 +6,7 @@ use ExtUtils::Depends;
 name 'B-Hooks-OP-Check';
 all_from 'lib/B/Hooks/OP/Check.pm';
 
+requires 'parent';
 configure_requires 'ExtUtils::Depends';
 
 my $pkg = ExtUtils::Depends->new('B::Hooks::OP::Check');
