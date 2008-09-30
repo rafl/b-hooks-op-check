@@ -2,6 +2,8 @@
 #include "perl.h"
 #include "XSUB.h"
 
+#include "hook_op_check.h"
+
 STATIC Perl_check_t orig_PL_check[OP_max];
 STATIC AV *check_cbs[OP_max];
 
