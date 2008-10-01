@@ -24,12 +24,12 @@ B::Hooks::OP::Check - Wrap OP check callbacks
 
     STATIC OP *my_const_check_op (pTHX_ OP *op) {
         /* ... */
+        return op;
     }
 
     void
     setup ()
         CODE:
-            hook_op_check_setup ();
             hook_op_check (OP_CONST, my_const_check_op);
 
 =head1 BIG FAT WARNING
