@@ -38,8 +38,19 @@ This is B<ALPHA> software. Things may change. Use at your own risk.
 
 =head1 DESCRIPTION
 
-This module provides a c api for xs modules to hook into the callbacks of
+This module provides a c api for XS modules to hook into the callbacks of
 C<PL_check>.
+
+L<ExtUtils::Depends> is used to export all functions for other XS modules to
+use. Include the following in your Makefile.PL:
+
+    my $pkg = ExtUtils::Depends->new('Your::XSModule', 'B::Hooks::OP::Check');
+    WriteMakefile(
+        ... # your normal makefile flags
+        $pkg->get_makefile_vars,
+    );
+
+Your XS module can now include C<hook_op_check.h>.
 
 =head1 FUNCTIONS
 
