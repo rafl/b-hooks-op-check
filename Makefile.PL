@@ -17,7 +17,10 @@ $pkg->add_pm('lib/B/Hooks/OP/Check.pm' => '$(INST_LIB)/B/Hooks/OP/Check.pm');
 mkdir 'build';
 $pkg->save_config('build/IFiles.pm');
 
-makemaker_args($pkg->get_makefile_vars);
+makemaker_args(
+    $pkg->get_makefile_vars,
+    dist => { PREOP => 'pod2text lib/B/Hooks/OP/Check.pm > $(DISTVNAME)/README' },
+);
 
 extra_tests;
 
