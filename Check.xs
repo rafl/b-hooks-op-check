@@ -11,8 +11,8 @@ STATIC AV *check_cbs[OP_max];
 
 STATIC UV initialized = 0;
 
-void
-hook_op_check_setup (void) {
+STATIC void
+setup () {
 	if (initialized) {
 		return;
 	}
@@ -48,7 +48,13 @@ STATIC OP *check_cb (pTHX_ OP *op) {
 
 void
 hook_op_check (opcode type, Perl_check_t cb) {
-	AV *hooks = check_cbs[type];
+	AV *hooks;
+
+	if (!initialized) {
+		setup ();
+	}
+
+	hooks = check_cbs[type];
 
 	if (!hooks) {
 		hooks = newAV ();

@@ -43,8 +43,6 @@ C<PL_check>.
 
 =head1 FUNCTIONS
 
-=head2 void hook_op_check_setup (void)
-
 =head2 void hook_op_check (opcode type, Perl_check_t cb)
 
 Register the callback C<cb> to be called after the C<PL_check> function for
