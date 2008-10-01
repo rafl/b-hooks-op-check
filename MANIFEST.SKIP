@@ -1,6 +1,7 @@
 ^\.
 build\b
-\.bak$
+blib\b
+\.(?:bak|o|c|bs)$
 inc\b
 ^Makefile$
 ^Makefile.old$
