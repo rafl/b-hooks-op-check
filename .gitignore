@@ -11,3 +11,6 @@ inc
 pm_to_blib
 MANIFEST*
 !MANIFEST.SKIP
+Debian*
+README
+B-Hooks-OP-Check-*
