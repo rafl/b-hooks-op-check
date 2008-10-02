@@ -65,6 +65,8 @@ Florian Ragwitz E<lt>rafl@debian.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
+Copyright (c) 2008 Florian Ragwitz
+
 This module is free software.
 
 You may distribute this code under the same terms as Perl itself.
