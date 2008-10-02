@@ -2,7 +2,6 @@
 build\b
 blib\b
 \.(?:bak|o|c|bs)$
-inc\b
 ^Makefile$
 ^Makefile.old$
 ^Debian
