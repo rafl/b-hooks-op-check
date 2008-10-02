@@ -19,7 +19,7 @@ setup () {
 
 	initialized = 1;
 
-	Copy (PL_check, orig_PL_check, OP_max, Perl_check_t *);
+	Copy (PL_check, orig_PL_check, OP_max, Perl_check_t);
 	Zero (check_cbs, OP_max, AV *);
 }
 
