@@ -23,7 +23,8 @@ setup () {
 	Zero (check_cbs, OP_max, AV *);
 }
 
-STATIC OP *check_cb (pTHX_ OP *op) {
+STATIC OP *
+check_cb (pTHX_ OP *op) {
 	I32 i;
 	AV *hooks = check_cbs[op->op_type];
 	OP *ret = run_orig_check (op->op_type, op);
