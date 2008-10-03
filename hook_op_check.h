@@ -3,8 +3,12 @@
 
 #include "perl.h"
 
+START_EXTERN_C
+
 typedef OP *(*hook_op_check_cb) (pTHX_ OP *);
 
-PERL_XS_EXPORT_C void hook_op_check (opcode type, hook_op_check_cb cb);
+void hook_op_check (opcode type, hook_op_check_cb cb);
+
+END_EXTERN_C
 
 #endif
