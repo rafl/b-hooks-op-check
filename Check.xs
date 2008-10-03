@@ -34,13 +34,14 @@ check_cb (pTHX_ OP *op) {
 	}
 
 	for (i = 0; i <= av_len (hooks); i++) {
+		hook_op_check_cb cb;
 		SV **hook = av_fetch (hooks, i, 0);
 
 		if (!hook || !*hook) {
 			continue;
 		}
 
-		hook_op_check_cb cb = (hook_op_check_cb)SvUV (*hook);
+		cb = (hook_op_check_cb)SvUV (*hook);
 		ret = CALL_FPTR (cb)(aTHX_ ret);
 	}
 
