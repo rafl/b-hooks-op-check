@@ -4,7 +4,7 @@
 
 #include "hook_op_check.h"
 
-STATIC Perl_check_t orig_PL_check[OP_max];
+STATIC hook_op_check_cb orig_PL_check[OP_max];
 STATIC AV *check_cbs[OP_max];
 
 #define run_orig_check(type, op) (CALL_FPTR (orig_PL_check[(type)])(aTHX_ op))
@@ -19,7 +19,7 @@ setup () {
 
 	initialized = 1;
 
-	Copy (PL_check, orig_PL_check, OP_max, Perl_check_t);
+	Copy (PL_check, orig_PL_check, OP_max, hook_op_check_cb);
 	Zero (check_cbs, OP_max, AV *);
 }
 
@@ -40,7 +40,7 @@ check_cb (pTHX_ OP *op) {
 			continue;
 		}
 
-		Perl_check_t cb = (Perl_check_t)SvUV (*hook);
+		hook_op_check_cb cb = (hook_op_check_cb)SvUV (*hook);
 		ret = CALL_FPTR (cb)(aTHX_ ret);
 	}
 
@@ -48,7 +48,7 @@ check_cb (pTHX_ OP *op) {
 }
 
 void
-hook_op_check (opcode type, Perl_check_t cb) {
+hook_op_check (opcode type, hook_op_check_cb cb) {
 	AV *hooks;
 
 	if (!initialized) {
