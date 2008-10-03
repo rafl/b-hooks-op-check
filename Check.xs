@@ -41,7 +41,7 @@ check_cb (pTHX_ OP *op) {
 			continue;
 		}
 
-		cb = (hook_op_check_cb)SvUV (*hook);
+		cb = INT2PTR (hook_op_check_cb, SvUV (*hook));
 		ret = CALL_FPTR (cb)(aTHX_ ret);
 	}
 
@@ -64,7 +64,7 @@ hook_op_check (opcode type, hook_op_check_cb cb) {
 		PL_check[type] = check_cb;
 	}
 
-	av_push (hooks, newSVuv ((UV)cb));
+	av_push (hooks, newSVuv (PTR2UV (cb)));
 }
 
 MODULE = B::Hooks::OP::Check  PACKAGE = B::Hooks::OP::Check
