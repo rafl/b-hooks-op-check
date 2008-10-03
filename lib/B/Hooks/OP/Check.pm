@@ -52,9 +52,15 @@ use. Include the following in your Makefile.PL:
 
 Your XS module can now include C<hook_op_check.h>.
 
+=head1 TYPES
+
+=head2 typedef OP *(*hook_op_check_cb) (pTHX_ OP *);
+
+Type that callbacks need to implement. Same as Perl_check_t in newer perls.
+
 =head1 FUNCTIONS
 
-=head2 void hook_op_check (opcode type, Perl_check_t cb)
+=head2 void hook_op_check (opcode type, hook_op_check_cb cb)
 
 Register the callback C<cb> to be called after the C<PL_check> function for
 opcodes of the given C<type>.
