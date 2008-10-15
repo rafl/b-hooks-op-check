@@ -22,7 +22,7 @@ B::Hooks::OP::Check - Wrap OP check callbacks
 
     # include "hook_op_check.h"
 
-    STATIC OP *my_const_check_op (pTHX_ OP *op) {
+    STATIC OP *my_const_check_op (pTHX_ OP *op, void *user_data) {
         /* ... */
         return op;
     }
@@ -30,7 +30,7 @@ B::Hooks::OP::Check - Wrap OP check callbacks
     void
     setup ()
         CODE:
-            hook_op_check (OP_CONST, my_const_check_op);
+            hook_op_check (OP_CONST, my_const_check_op, NULL);
 
 =head1 BIG FAT WARNING
 
