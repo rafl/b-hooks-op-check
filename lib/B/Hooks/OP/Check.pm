@@ -32,10 +32,6 @@ B::Hooks::OP::Check - Wrap OP check callbacks
         CODE:
             hook_op_check (OP_CONST, my_const_check_op, NULL);
 
-=head1 BIG FAT WARNING
-
-This is B<ALPHA> software. Things may change. Use at your own risk.
-
 =head1 DESCRIPTION
 
 This module provides a c api for XS modules to hook into the callbacks of
