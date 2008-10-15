@@ -4,7 +4,9 @@
 
 #include "hook_op_check.h"
 
-STATIC hook_op_check_cb orig_PL_check[OP_max];
+typedef OP *(*orig_check_t) (pTHX_ OP *op);
+
+STATIC orig_check_t orig_PL_check[OP_max];
 STATIC AV *check_cbs[OP_max];
 
 #define run_orig_check(type, op) (CALL_FPTR (orig_PL_check[(type)])(aTHX_ op))
@@ -35,22 +37,29 @@ check_cb (pTHX_ OP *op) {
 
 	for (i = 0; i <= av_len (hooks); i++) {
 		hook_op_check_cb cb;
+		MAGIC *mg;
+		void *user_data = NULL;
 		SV **hook = av_fetch (hooks, i, 0);
 
 		if (!hook || !*hook) {
 			continue;
 		}
 
+		if ((mg = mg_find (*hook, PERL_MAGIC_ext))) {
+			user_data = (void *)mg->mg_ptr;
+		}
+
 		cb = INT2PTR (hook_op_check_cb, SvUV (*hook));
-		ret = CALL_FPTR (cb)(aTHX_ ret);
+		ret = CALL_FPTR (cb)(aTHX_ ret, user_data);
 	}
 
 	return ret;
 }
 
 void
-hook_op_check (opcode type, hook_op_check_cb cb) {
+hook_op_check (opcode type, hook_op_check_cb cb, void *user_data) {
 	AV *hooks;
+	SV *hook;
 
 	if (!initialized) {
 		setup ();
@@ -64,7 +73,9 @@ hook_op_check (opcode type, hook_op_check_cb cb) {
 		PL_check[type] = check_cb;
 	}
 
-	av_push (hooks, newSVuv (PTR2UV (cb)));
+	hook = newSVuv (PTR2UV (cb));
+	sv_magic (hook, NULL, PERL_MAGIC_ext, (const char *)user_data, 0);
+	av_push (hooks, hook);
 }
 
 MODULE = B::Hooks::OP::Check  PACKAGE = B::Hooks::OP::Check
