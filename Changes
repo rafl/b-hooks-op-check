@@ -1,3 +1,6 @@
+0.10  Wed, 15 Oct 2008 23:22:25 +0200
+  * Allow passing userdata to callbacks.
+
 0.03  Fri, 03 Oct 2008 08:07:26 +0200
   * Don't use Perl_check_t to be more portable.
 
