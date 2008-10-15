@@ -54,13 +54,13 @@ Your XS module can now include C<hook_op_check.h>.
 
 =head1 TYPES
 
-=head2 typedef OP *(*hook_op_check_cb) (pTHX_ OP *);
+=head2 typedef OP *(*hook_op_check_cb) (pTHX_ OP *, void *);
 
-Type that callbacks need to implement. Same as Perl_check_t in newer perls.
+Type that callbacks need to implement.
 
 =head1 FUNCTIONS
 
-=head2 void hook_op_check (opcode type, hook_op_check_cb cb)
+=head2 void hook_op_check (opcode type, hook_op_check_cb cb, void *user_data)
 
 Register the callback C<cb> to be called after the C<PL_check> function for
 opcodes of the given C<type>.
