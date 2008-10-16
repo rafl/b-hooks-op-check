@@ -14,6 +14,7 @@ __PACKAGE__->bootstrap($VERSION);
 1;
 
 __END__
+
 =head1 NAME
 
 B::Hooks::OP::Check - Wrap OP check callbacks
@@ -27,10 +28,17 @@ B::Hooks::OP::Check - Wrap OP check callbacks
         return op;
     }
 
+    STATIC hook_op_check_id my_hook_id = 0;
+
     void
     setup ()
         CODE:
-            hook_op_check (OP_CONST, my_const_check_op, NULL);
+            my_hook_id = hook_op_check (OP_CONST, my_const_check_op, NULL);
+
+    void
+    teardown ()
+        CODE:
+            hook_op_check_remove (OP_CONST, my_hook_id);
 
 =head1 DESCRIPTION
 
@@ -54,12 +62,22 @@ Your XS module can now include C<hook_op_check.h>.
 
 Type that callbacks need to implement.
 
+=head2 typedef UV hook_op_check_id
+
+Type to identify a callback.
+
 =head1 FUNCTIONS
 
-=head2 void hook_op_check (opcode type, hook_op_check_cb cb, void *user_data)
+=head2 hook_op_check_id hook_op_check (opcode type, hook_op_check_cb cb, void *user_data)
 
 Register the callback C<cb> to be called after the C<PL_check> function for
-opcodes of the given C<type>.
+opcodes of the given C<type>. C<user_data> will be passed to the callback as
+the last argument. Returns an id that can be used to remove the callback later
+on.
+
+=head2 void *hook_op_check_remove (opcode type, hook_op_check_id id)
+
+Remove the callback identified by C<id>. Returns the userdata the callback had.
 
 =head1 AUTHOR
 
