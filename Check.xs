@@ -64,7 +64,7 @@ check_cb (pTHX_ OP *op) {
 	return ret;
 }
 
-void
+hook_op_check_id
 hook_op_check (opcode type, hook_op_check_cb cb, void *user_data) {
 	AV *hooks;
 	SV *hook;
@@ -84,6 +84,8 @@ hook_op_check (opcode type, hook_op_check_cb cb, void *user_data) {
 	hook = newSVuv (PTR2UV (cb));
 	sv_magic (hook, NULL, PERL_MAGIC_ext, (const char *)user_data, 0);
 	av_push (hooks, hook);
+
+	return (hook_op_check_id)PTR2UV (hook);
 }
 
 MODULE = B::Hooks::OP::Check  PACKAGE = B::Hooks::OP::Check
