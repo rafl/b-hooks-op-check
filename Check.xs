@@ -13,6 +13,17 @@ STATIC AV *check_cbs[OP_max];
 
 STATIC UV initialized = 0;
 
+STATIC void *
+get_mg_ptr (SV *sv) {
+	MAGIC *mg;
+
+	if ((mg = mg_find (sv, PERL_MAGIC_ext))) {
+		return mg->mg_ptr;
+	}
+
+	return NULL;
+}
+
 STATIC void
 setup () {
 	if (initialized) {
@@ -37,17 +48,14 @@ check_cb (pTHX_ OP *op) {
 
 	for (i = 0; i <= av_len (hooks); i++) {
 		hook_op_check_cb cb;
-		MAGIC *mg;
-		void *user_data = NULL;
+		void *user_data;
 		SV **hook = av_fetch (hooks, i, 0);
 
 		if (!hook || !*hook) {
 			continue;
 		}
 
-		if ((mg = mg_find (*hook, PERL_MAGIC_ext))) {
-			user_data = (void *)mg->mg_ptr;
-		}
+		user_data = get_mg_ptr (*hook);
 
 		cb = INT2PTR (hook_op_check_cb, SvUV (*hook));
 		ret = CALL_FPTR (cb)(aTHX_ ret, user_data);
