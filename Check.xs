@@ -95,13 +95,13 @@ hook_op_check_remove (opcode type, hook_op_check_id id) {
 	void *ret = NULL;
 
 	if (!initialized) {
-		return;
+		return NULL;
 	}
 
 	hooks = check_cbs[type];
 
 	if (!hooks) {
-		return;
+		return NULL;
 	}
 
 	for (i = 0; i <= av_len (hooks); i++) {
