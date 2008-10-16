@@ -88,6 +88,38 @@ hook_op_check (opcode type, hook_op_check_cb cb, void *user_data) {
 	return (hook_op_check_id)PTR2UV (hook);
 }
 
+void *
+hook_op_check_remove (opcode type, hook_op_check_id id) {
+	AV *hooks;
+	I32 i;
+	void *ret = NULL;
+
+	if (!initialized) {
+		return;
+	}
+
+	hooks = check_cbs[type];
+
+	if (!hooks) {
+		return;
+	}
+
+	for (i = 0; i <= av_len (hooks); i++) {
+		SV **hook = av_fetch (hooks, i, 0);
+
+		if (!hook && !*hook) {
+			continue;
+		}
+
+		if ((hook_op_check_id)PTR2UV (*hook) == id) {
+			ret = get_mg_ptr (*hook);
+			av_delete (hooks, i, G_DISCARD);
+		}
+	}
+
+	return ret;
+}
+
 MODULE = B::Hooks::OP::Check  PACKAGE = B::Hooks::OP::Check
 
 PROTOTYPES: DISABLE
