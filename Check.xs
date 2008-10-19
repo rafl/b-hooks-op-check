@@ -2,6 +2,8 @@
 #include "perl.h"
 #include "XSUB.h"
 
+#include "ppport.h"
+
 #include "hook_op_check.h"
 
 typedef OP *(*orig_check_t) (pTHX_ OP *op);
