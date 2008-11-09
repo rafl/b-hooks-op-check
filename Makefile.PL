@@ -19,6 +19,8 @@ $pkg->save_config('build/IFiles.pm');
 
 makemaker_args(
     $pkg->get_makefile_vars,
+    FUNCLIST => [qw/hook_op_check hook_op_check_remove/],
+    DL_FUNCS => { 'B::Hooks::OP::Check' => [] },
     dist => { PREOP => 'pod2text lib/B/Hooks/OP/Check.pm > $(DISTVNAME)/README' },
 );
 
