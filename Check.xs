@@ -109,7 +109,7 @@ hook_op_check_remove (opcode type, hook_op_check_id id) {
 	for (i = 0; i <= av_len (hooks); i++) {
 		SV **hook = av_fetch (hooks, i, 0);
 
-		if (!hook && !*hook) {
+		if (!hook || !*hook) {
 			continue;
 		}
 
