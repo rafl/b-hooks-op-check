@@ -1,3 +1,7 @@
+0.14  Sun, 09 Nov 2008 22:22:15 +0100
+  * Tell MakeMaker which symbols we'd like to export. Hopefully this will make
+    linking against us work on Win32.
+
 0.13  Sun, 09 Nov 2008 03:36:27 +0100
   * Try to not dereference NULL.
 
