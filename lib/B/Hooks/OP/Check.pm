@@ -3,6 +3,7 @@ use warnings;
 
 package B::Hooks::OP::Check;
 
+require 5.008001;
 use parent qw/DynaLoader/;
 
 our $VERSION = '0.14';
