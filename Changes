@@ -1,3 +1,6 @@
+0.15  Tue, 11 Nov 2008 18:21:05 +0100
+  * Require perl 5.8.1.
+
 0.14  Sun, 09 Nov 2008 22:22:15 +0100
   * Tell MakeMaker which symbols we'd like to export. Hopefully this will make
     linking against us work on Win32.
