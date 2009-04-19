@@ -6,7 +6,7 @@ package B::Hooks::OP::Check;
 require 5.008001;
 use parent qw/DynaLoader/;
 
-our $VERSION = '0.16';
+our $VERSION = '0.17';
 
 sub dl_load_flags { 0x01 }
 

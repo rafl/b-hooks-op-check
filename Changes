@@ -1,3 +1,6 @@
+0.17  Sun, 19 Apr 2009 10:06:40 +0200
+  * Put the actual repository url in META.yml. D'OH!
+
 0.16  Sun, 19 Apr 2009 09:53:09 +0200
   * Explicitly declare testing dependency on Test::More (Closes RT#45133).
   * Specify bugtracker and repository urls in META.yml.
