@@ -11,6 +11,7 @@ all_from 'lib/B/Hooks/OP/Check.pm';
 
 requires 'parent';
 configure_requires 'ExtUtils::Depends';
+test_requires 'Test::More';
 
 my $pkg = ExtUtils::Depends->new('B::Hooks::OP::Check');
 $pkg->install('hook_op_check.h');
