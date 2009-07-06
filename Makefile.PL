@@ -1,7 +1,7 @@
+use 5.008001;
 use strict;
 use warnings;
 
-require 5.008001;
 
 use inc::Module::Install;
 use ExtUtils::Depends;
