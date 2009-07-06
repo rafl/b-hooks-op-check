@@ -10,7 +10,7 @@ name 'B-Hooks-OP-Check';
 all_from 'lib/B/Hooks/OP/Check.pm';
 
 requires 'parent';
-configure_requires 'ExtUtils::Depends';
+configure_requires 'ExtUtils::Depends' => 0.302; #minimum version that works on Win32+gcc
 test_requires 'Test::More';
 
 my $pkg = ExtUtils::Depends->new('B::Hooks::OP::Check');

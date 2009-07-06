@@ -1,3 +1,6 @@
+  * Require ExtUtils::Depends 0.302, which fixes linking problems on strawberry
+    perl.
+
 0.17  Sun, 19 Apr 2009 10:06:40 +0200
   * Put the actual repository url in META.yml. D'OH!
 
